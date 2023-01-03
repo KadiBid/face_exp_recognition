@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js" integrity="sha384-aCaxUP5DnkI7QE6SRaVW2z7cuxdMspuE4prBgfFMCLRhnUw7/Ws42SeDRbn3wPnw" crossorigin="anonymous"></script>
+
+    <main>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-md-4 offset-md-4 text-center">
+            <canvas id="output"></canvas>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="text/javascript">
+      const EMOTIONS = [
+        //'angry',
+        //'disgust',
+        //'fear',
+        'happy', 
+        'neutral', 
+        'sad', 
+        'surprise'
+      ]
+      async function main() {
+        const model = await tf.loadLayersModel('models/modelConv/modelConv.json');
+
+        const canvas = document.getElementById("output");
+        const canvas_ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+        var facedetector_options = {
+          fastMode: true
+        };
+
+        var camera_options = {
+          audio: false,
+          video: {
+            width: 480, height: 480,
+            facingMode: "user"
+          },
+        };
+
+        const faceDetector = new FaceDetector(facedetector_options);
+        const mediaStream = await navigator.mediaDevices.getUserMedia(camera_options)
+  
+        const camera = document.createElement("video");
+        camera.srcObject = mediaStream;
+        camera.autoplay = true;
+
+        camera.onloadedmetadata = () => {
+          canvas.width = camera.videoWidth;
+          canvas.height = camera.videoHeight;
+        };
+
+        setInterval(async function() {
+          faceDetector
+          .detect(camera)
+          .then((faces) => {
+            canvas_ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas_ctx.drawImage(camera, 0, 0, camera.videoWidth, camera.videoHeight);
+
+            canvas_ctx.strokeStyle = "#FFFF00";
+            canvas_ctx.lineWidth = 5;
+            canvas_ctx.font = "30px Arial";
+            canvas_ctx.fillStyle = "#FFFF00";
+
+            faces.forEach((face) => {
+              const { top, left, width, height } = face.boundingBox;
+  
+              canvas_ctx.beginPath();
+              canvas_ctx.rect(left, top, width, height);
+              canvas_ctx.stroke();
+
+              const canvas_face = new OffscreenCanvas(48, 48);
+              const canvas_face_ctx = canvas_face.getContext("2d");
+              canvas_face_ctx.drawImage(canvas, left, top, width, height, 0, 0, 48, 48);
+
+              const image = tf.browser.fromPixels(canvas_face_ctx.getImageData(0, 0, canvas_face.width, canvas_face.height))
+                .mean(2)
+                .toFloat()
+                .div(255)
+                .expandDims(-1)
+                .reshape([-1, 48, 48, 1])
+          
+              pred = model.predict(image) 
+              a = Array.from(pred.dataSync())
+              let i = a.indexOf(Math.max(...a));
+
+              canvas_ctx.fillText(EMOTIONS[i], left+30, top-10);
+            })
+          })
+
+        }, 100);
+      }
+      main();
+    </script>
+  </body>
+</html>
