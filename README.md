@@ -22,12 +22,20 @@ The product of this final project is a web application that utilizes the video s
 
 ## Architecture ##
 
-The architecture is composed by various elements:
+The architecture is a front-end web application (HTML+JS) with everything self-contained.
 
-1. A front-end web application.
-2. Machine Learning models; one to detect faces and another to label emotions.
+1. Webcam (using javascript)
+2. FaceDetector (using an experimental Chrome feature)
+3. Machine Learning model (converted to javascript using [TensorFlow.js](https://www.tensorflow.org/js))
 
-[ TODO: picture ]
+<p align="center">
+  <img src = "https://user-images.githubusercontent.com/112415704/210812370-5266b479-c21d-4f07-9a67-e41cf57e63f2.png">
+</p>
+
+| ℹ️ This is my final architecture, but during the project I had a lot of doubts and made many changes as I learned new things.  |
+| --- |
+
+
 
 ## Development ##
 
