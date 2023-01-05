@@ -36,21 +36,28 @@ The architecture is a front-end web application (HTML+JS) with everything self-c
 | --- |
 
 
-
-## Development ##
+## About The Repository ##
 
 That repository contains two folders:
 
-1. *AI* contains all my code related to machine learning models.
-2. *app* contains the fronend web application to interact with the models.
+* *AI* contains all my toolset (jupyter notebooks) to generate and analyze the machine learning models.
+  * '*generate_models.ipynb*' Jupyter notebook to define and train different models (CNN, MobileNet, ResNet50 and VGG16).
+  * '*analyze_models.ipynb*' Jupyter notebook to show the performance of the winning model (CNN).
 
-In this section I will describe my process to develop this project.
+* *app* contains the fronend web application the user will interact with.
+  * '*index.html*' Main code of the frontend web application.
+  * '*model/CNN*' Folder containing the TensorFlow.js version of the CNN model.
+
+The dataset is not in the repositoru, but it is expected to be in '*AI/dataset*'.
+
+
+## Development ##
 
 
 
 
 
-### About Dataset: 
+### About Dataset: 2
 
 The data consists of 48x48 pixel grayscale images of faces. The faces have been automatically registered so that the face is more or less centred and occupies about the same amount of space in each image.
 
