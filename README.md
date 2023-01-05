@@ -43,12 +43,13 @@ That repository contains two folders:
 * *AI* contains all my toolset (jupyter notebooks) to generate and analyze the machine learning models.
   * '*generate_models.ipynb*' Jupyter notebook to define and train different models (CNN, MobileNet, ResNet50 and VGG16).
   * '*analyze_models.ipynb*' Jupyter notebook to show the performance of the winning model (CNN).
+  * '*export_models.ipynb*' Jupyter notebook to export the winning model to Tensorflow.js.
 
 * *app* contains the fronend web application the user will interact with.
   * '*index.html*' Main code of the frontend web application.
   * '*model/CNN*' Folder containing the TensorFlow.js version of the CNN model.
 
-The dataset is not in the repositoru, but it is expected to be in '*AI/dataset*'.
+The dataset is not in the repository, but it is expected to be in '*AI/dataset*'.
 
 
 ## Development ##
