@@ -43,7 +43,7 @@ That repository contains two folders:
 * *AI* contains all my toolset (jupyter notebooks) to generate and analyze the machine learning models.
   * '*generate_models.ipynb*' Jupyter notebook to define and train different models (CNN, MobileNet, ResNet50 and VGG16).
   * '*analyze_models.ipynb*' Jupyter notebook to show the performance of the winning model (CNN).
-  * '*export_models.ipynb*' Jupyter notebook to export the winning model to Tensorflow.js.
+  * '*export_models.ipynb*' Jupyter notebook to export the winning models to Tensorflow.js.
 
 * *app* contains the fronend web application the user will interact with.
   * '*index.html*' Main code of the frontend web application.
