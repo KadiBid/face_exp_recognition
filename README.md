@@ -79,7 +79,9 @@ In my case I finally decided to use the [fer2013 dataset](https://www.kaggle.com
 
 The fer2013 contains images like the ones showed below:
 
-
+<p align="center">
+  <img src = "https://user-images.githubusercontent.com/112415704/211166777-06205b6b-bf3f-4319-bf5c-8469d0941235.jpg">
+</p>
 
 The dataset was splitted into two groups, the first one containing images for training and the other one containing images for testing. I decided to mix them all and use train_test_split() to make this disctinction.
 
