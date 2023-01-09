@@ -156,3 +156,9 @@ https://user-images.githubusercontent.com/112415704/211371433-80f839f6-8bc5-4bc7
 I was not able to incorporate into the product all 7 emotions. I limited it to 4; happy, surprise, neutral and sad. Most of them works pretty reliable for excepte of the sad emotion, wich is not working perfect for some people.
 
 
+
+## Renferenses ##
+
+https://gist.github.com/ritwickdey/83e56d608d35ce135b975b5947b86ed3 (inspo from ritwickdey)
+
+https://tutorial.tips/how-to-enable-disable-experimental-web-platform-features-chrome-browser/ (Face detection using Google Chrome) 
