@@ -157,6 +157,12 @@ I was not able to incorporate into the product all 7 emotions. I limited it to 4
 
 
 
+## Presenter View ##
+
+https://user-images.githubusercontent.com/112415704/211383833-afe60388-8758-4a75-8dce-f92216218bba.mp4
+
+
+
 ## Renferenses ##
 
 https://gist.github.com/ritwickdey/83e56d608d35ce135b975b5947b86ed3 (inspo from ritwickdey)
