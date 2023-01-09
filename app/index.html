@@ -19,6 +19,8 @@
     </main>
 
     <script type="text/javascript">
+
+      // Array containing the emotions that the model can detect.
       const EMOTIONS = [
         //'angry',
         //'disgust',
@@ -28,16 +30,22 @@
         'sad', 
         'surprise'
       ]
+      
+      // Main function.
       async function main() {
+
+        // Load TensorFlow.js model.
         const model = await tf.loadLayersModel('models/modelConv/modelConv.json');
 
         const canvas = document.getElementById("output");
         const canvas_ctx = canvas.getContext("2d", { willReadFrequently: true });
 
+        // FaceDetector options (faceMode enabled for better realtime experience)
         var facedetector_options = {
           fastMode: true
         };
 
+        // Webcam options (audio disabled)
         var camera_options = {
           audio: false,
           video: {
@@ -46,6 +54,7 @@
           },
         };
 
+        // Create FaceDetector object and mediaStream for the Webcam.
         const faceDetector = new FaceDetector(facedetector_options);
         const mediaStream = await navigator.mediaDevices.getUserMedia(camera_options)
   
@@ -58,29 +67,37 @@
           canvas.height = camera.videoHeight;
         };
 
+        // Loop function (executed every 100ms).
         setInterval(async function() {
+          // Detect Faces.
           faceDetector
           .detect(camera)
           .then((faces) => {
             canvas_ctx.clearRect(0, 0, canvas.width, canvas.height);
             canvas_ctx.drawImage(camera, 0, 0, camera.videoWidth, camera.videoHeight);
 
+            // Setup style of text and boxes.
             canvas_ctx.strokeStyle = "#FFFF00";
             canvas_ctx.lineWidth = 5;
             canvas_ctx.font = "30px Arial";
             canvas_ctx.fillStyle = "#FFFF00";
 
+            // For each detected face...
             faces.forEach((face) => {
+              // Get the face bounding box.
               const { top, left, width, height } = face.boundingBox;
   
+              // Draw the box on the image.
               canvas_ctx.beginPath();
               canvas_ctx.rect(left, top, width, height);
               canvas_ctx.stroke();
 
+              // Crop faces on the image (to be used as input to the model) and scale 48x48.
               const canvas_face = new OffscreenCanvas(48, 48);
               const canvas_face_ctx = canvas_face.getContext("2d");
               canvas_face_ctx.drawImage(canvas, left, top, width, height, 0, 0, 48, 48);
 
+              // Create input Tensor based on face image.
               const image = tf.browser.fromPixels(canvas_face_ctx.getImageData(0, 0, canvas_face.width, canvas_face.height))
                 .mean(2)
                 .toFloat()
@@ -88,14 +105,15 @@
                 .expandDims(-1)
                 .reshape([-1, 48, 48, 1])
           
+              // Predict emotion.
               pred = model.predict(image) 
               a = Array.from(pred.dataSync())
               let i = a.indexOf(Math.max(...a));
 
+              // Write the emotion in the screen up to the box.
               canvas_ctx.fillText(EMOTIONS[i], left+30, top-10);
             })
           })
-
         }, 100);
       }
       main();

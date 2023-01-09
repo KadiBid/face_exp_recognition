@@ -85,28 +85,61 @@ The fer2013 contains images like the ones showed below:
 
 The dataset was splitted into two groups, the first one containing images for training and the other one containing images for testing. I decided to mix them all and use train_test_split() to make this disctinction.
 
+| ℹ️ During the project I identfied some weaknesses in the dataset (images withou faces, images incorrectly labeled, etc) but they were afecting a small subset of images so I considered them negligible and didn't cleanup them. |
+| --- |
 
 #### Models ####
 
 In order to pick he best possible model for my project I decided to evaluate four different models, three pretrained models using transfer learning and a model designed from scratch applying some learnings I got from Core Code School and some great Youtube divulgators. The models I used are the following:
 
-Pretrained:
-* *MobileNetV2* is a lightweight machine learning model for image classification and object detection that is designed to run efficiently on mobile devices. It uses a neural network architecture that is optimized for speed and accuracy, making it a popular choice for mobile and edge applications.
-* *ResNet50* is a deep convolutional neural network model trained on the ImageNet dataset. It is designed to recognize and classify objects in images and has achieved state-of-the-art performance on the ImageNet classification task. It is widely used in a variety of image recognition and computer vision applications.
-* *VGG16* is a convolutional neural network model trained on the ImageNet dataset. It is characterized by its deep architecture, with 16 layers of convolutional and fully-connected layers, and is known for its good performance on image classification tasks. It is often used as a baseline model for comparison with other image recognition models.
-
 From scratch:
-* Convolutional model based on learnings from the following links:
+* *Convolutional* model based on learnings from the following links:
   - [Redes Neuronales Convolucionales - Clasificación avanzada de imágenes con IA / ML (CNN)](https://www.youtube.com/watch?v=4sWhhQwHqug) by Ringa Tech.
   - [¡Redes Neuronales CONVOLUCIONALES! ¿Cómo funcionan?](https://www.youtube.com/watch?v=V8j1oENVz00) by DotCSV
 
-To define and train the models I created a toolset based on Jupyter Notebook; '*generate_models.ipynb*'.
+Pretrained:
+* *MobileNetV2* is a lightweight convolutional machine learning model for image classification and object detection that is designed to run efficiently on mobile devices. It uses a neural network architecture that is optimized for speed and accuracy, making it a popular choice for mobile and edge applications.
+* *ResNet50* is a deep convolutional neural network model trained on the ImageNet dataset. It is designed to recognize and classify objects in images and has achieved state-of-the-art performance on the ImageNet classification task. It is widely used in a variety of image recognition and computer vision applications.
+* *VGG16* is a convolutional neural network model trained on the ImageNet dataset. It is characterized by its deep architecture, with 16 layers of convolutional and fully-connected layers, and is known for its good performance on image classification tasks. It is often used as a baseline model for comparison with other image recognition models.
+
+To define and train the models I created a tool based on Jupyter Notebook; '*generate_models.ipynb*'. After training all the models I got the following results:
 
 
 
 
+[ images ]
+
+
+
+
+
+Pretrained models shows an slow training process, probably because I am labeling the pretrained data as non-trainable, so only the Dense layers I added at the end can be trained. I
+
+
+
+
+
+
+[hipotesis why pretained are not working better]
+
+I finally chose to use the convolutional model that I trained from scratch to be used on my product.
 
 ### Application ###
+
+The aplication will be a web application, so I need to be able to use the model from Javascript. Fortunately there is a TensorFlow.js tool to convert the models, so I created a tool based on Jupyter Notebook to export the model to javascript: '*export_models.ipynb*'.
+
+Based on the code presented in this tutorial:
+
+- [Crea un clasificador de perros y gatos con IA, Python y Tensorflow - Proyecto completo](https://www.youtube.com/watch?v=DbwKbsCWPSg) by Ringa Tech.
+ 
+I developed a basic application to capture the camera and pass the video images to the model and show the emotion detected, but the results were not very good. The reason this happened was because the positioning of the face in the webcam and in the dataset images was very different.
+
+
+
+
+
+
+
 
 
 ## References ##
