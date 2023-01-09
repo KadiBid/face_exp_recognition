@@ -104,23 +104,33 @@ Pretrained:
 
 To define and train the models I created a tool based on Jupyter Notebook; '*generate_models.ipynb*'. After training all the models I got the following results:
 
+**From scratch**
 
+**Convolucional Model:**
 
-
-[ images ]
-
-
-
-
-
-Pretrained models shows an slow training process, probably because I am labeling the pretrained data as non-trainable, so only the Dense layers I added at the end can be trained. I
+![photo_2023-01-08 23 34 10](https://user-images.githubusercontent.com/112415704/211374513-aaddc5bf-5306-4510-8e1c-f49a869a1167.jpeg)
 
 
 
 
+**Pretrained**
+
+**MobileNetV2:**
+
+<img width="995" alt="Screenshot 2023-01-07 at 22 00 43" src="https://user-images.githubusercontent.com/112415704/211373999-13a20b75-c606-4161-a5f8-5d088e1f1afc.png">
 
 
-[hipotesis why pretained are not working better]
+**ResNet50:**
+
+![photo_2023-01-08 21 16 32](https://user-images.githubusercontent.com/112415704/211374706-37f97716-e160-4545-9797-246731cc63cb.jpeg)
+
+
+**VGG16:**
+
+![image](https://user-images.githubusercontent.com/112415704/211374441-bed943cb-41f1-468c-a20a-dc95967b6b31.png)
+
+
+Pretrained models shows an slow training process, probably because I am labeling the pretrained data as non-trainable, so only the Dense layers I added at the end can be trained. 
 
 I finally chose to use the convolutional model that I trained from scratch to be used on my product.
 
@@ -135,17 +145,14 @@ Based on the code presented in this tutorial:
 I developed a basic application to capture the camera and pass the video images to the model and show the emotion detected, but the results were not very good. The reason this happened was because the positioning of the face in the webcam and in the dataset images was very different.
 
 
+## Demo ##
+
+https://user-images.githubusercontent.com/112415704/211371433-80f839f6-8bc5-4bc7-9fc2-c688cd240965.mp4
 
 
 
+## Limitations ##
+
+I was not able to incorporate into the product all 7 emotions. I limited it to 4; happy, surprise, neutral and sad. Most of them works pretty reliable for excepte of the sad emotion, wich is not working perfect for some people.
 
 
-
-
-## References ##
-
-* https://www.youtube.com/watch?v=4sWhhQwHqug (Convolucional model)
-
-* https://www.youtube.com/watch?v=DbwKbsCWPSg (Webcam + Tensorflow.js)
-
-* https://medium.com/@joomiguelcunha/lets-play-with-chrome-s-face-detection-api-ca13017a958f (FaceDetection on Chrome -experimental-)
